@@ -14,12 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 public class MainActivity extends AppCompatActivity {
 
 
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+     private FirebaseDatabase db = FirebaseDatabase.getInstance();
      private DatabaseReference mRootRef = db.getReference();
-     private DatabaseReference mUserRef = mRootRef.child("user");
+     private DatabaseReference mUserRef = mRootRef.child("users");
 
      private EditText userName;
      private Button login;
@@ -33,26 +35,58 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = userName.getText().toString().trim().toLowerCase();
-
-                mUserRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        String text = snapshot.getValue(String.class);
-                        userName.setText(text);
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-
-                    }
-                });
+                String userInput = userName.getText().toString().trim().toLowerCase();
+                userInDb(userInput);
+                if(userValidation(userInput)){
+                    // open chat
+                }
 
             }
         });
 
 
+    }
+
+    private void userInDb(String userInput) {
+
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Iterator<DataSnapshot> dataSnapshots = snapshot.getChildren().iterator();
+                while (dataSnapshots.hasNext()) {
+                    DataSnapshot dataSnapshotChild = dataSnapshots.next();
+                    String Uname = dataSnapshotChild.getValue().toString();
+                    if (Uname.equals(userInput)) {
+                        userName.setError("Username already exists");
+                        return;
+                    }
+                }
+                createNewUser(db, userInput);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void createNewUser(FirebaseDatabase db, String userInput) {
+
+        DatabaseReference dbRef = db.getReference();
+        DatabaseReference newUserRef = dbRef.child("users").push();
+        newUserRef.setValue(userInput);
+    }
+
+    private boolean userValidation(String userInput) {
+        if (userInput.isEmpty()){
+            userName.setError("username cannot be empty");
+            return false;
+        } else{
+            userName.setError(null);
+            return true;
+        }
     }
 
 
