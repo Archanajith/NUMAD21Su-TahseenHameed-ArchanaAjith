@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1026852440930",
+    "project_id": "stickem-a22af",
+    "storage_bucket": "stickem-a22af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026852440930:android:499bfc65e908872341ba3b",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.numad21su_tahseenhameed_archanaajith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026852440930-p8dftfb68q9rbivjur8ikkb1e4fqc1rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmXtyHHDeYDfsLUiExPjNocJ8tYZZ4mxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026852440930-p8dftfb68q9rbivjur8ikkb1e4fqc1rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
