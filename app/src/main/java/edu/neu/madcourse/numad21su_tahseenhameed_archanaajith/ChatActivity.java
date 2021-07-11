@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -87,10 +88,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                    // reset emoji and receiver
                    displayEmoji.setImageResource(emojiList[0]);
                    receiverInput.setText("");
+                   Snackbar.make(view, "Sticker Sent", Snackbar.LENGTH_LONG)
+                           .show();
 
                }
                else if(emojiId == 0) {
-
+                   Snackbar.make(view, "Please select a sticker to send", Snackbar.LENGTH_LONG)
+                           .show();
+               }
+               else{
+                   Snackbar.make(view, "Receiver username cannot be empty", Snackbar.LENGTH_LONG)
+                           .show();
                }
 
         }
