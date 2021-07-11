@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_new_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD21SuTahseenHameedArchanaAjith">
-        <activity android:name=".ChatHistoryActivity"></activity>
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ChatHistoryActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"></activity>
+        <activity android:name=".ChatActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
