@@ -10,12 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Sticker> stickers;
+    private List<ChatActivity.Sticker> stickers;
+    int [] stickerList = {R.drawable.choice_icon, R.drawable.heart_icon, R.drawable.smile_icon, R.drawable.angry_icon};
+    //ImageView sticker;
+    //TextView senderName;
 
-    public Adapter(Context mContext, List<Sticker> mData) {
+    public Adapter(Context mContext, List<ChatActivity.Sticker> mData) {
         this.mContext = mContext;
         this.stickers = mData;
     }
@@ -33,38 +38,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        ImageView imageView = convertView.findViewById(R.id.grid_stickers);
-        imageView.setImageResource(stickerList[stickers.get(position).getEmojiID()]);
-        TextView tv = convertView.findViewById(R.id.senderName);
-        tv.setText(stickers.get(position).getUserFrom());
-        holder.senderName.setText();
-        holder.id.setText(mData.get(position).getId());
-        holder.name.setText(mData.get(position).getName());
-        holder.description.setText(mData.get(position).getDescription());
-
+holder.sticker.setImageResource(stickerList[stickers.get(position).getEmojiId()]);
+             holder.senderName.setText(stickers.get(position).getSender());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return stickers.size();
     }
 
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
+    public  class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView sticker;
         TextView senderName;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            id = itemView.findViewById(R.id.id_txt);
-            name = itemView.findViewById(R.id.name_txt);
-            img = itemView.findViewById(R.id.imageView);
-            description=itemView.findViewById(R.id.text_view_description);
+            sticker = itemView.findViewById(R.id.each_grid_sticker);
+            senderName=itemView.findViewById(R.id.sender);
 
 
 
