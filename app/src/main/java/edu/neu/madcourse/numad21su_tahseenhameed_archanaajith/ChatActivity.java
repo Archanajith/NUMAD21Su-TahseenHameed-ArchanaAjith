@@ -61,7 +61,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
     }
 
     @Override
@@ -116,6 +115,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public static class Sticker {
+
 
         public String getSender() {
             return sender;
