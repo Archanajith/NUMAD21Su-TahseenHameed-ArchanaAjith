@@ -12,7 +12,7 @@
         <activity android:name=".ChatHistoryActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"></activity>
         <activity android:name=".ChatActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+            />
         <activity android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
