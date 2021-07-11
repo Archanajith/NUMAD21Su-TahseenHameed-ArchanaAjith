@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_new_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD21SuTahseenHameedArchanaAjith">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatHistoryActivity"></activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

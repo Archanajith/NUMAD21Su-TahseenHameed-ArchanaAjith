@@ -2,6 +2,7 @@ package edu.neu.madcourse.numad21su_tahseenhameed_archanaajith;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         sendButton = findViewById(R.id.sendButton);
         displayEmoji = findViewById(R.id.displayEmoji);
         displayEmoji.setImageResource(emojiList[0]);
+        historyButton=findViewById(R.id.historyButton);
 
         // set Emoji on Click
         heartEmoji = findViewById(R.id.heartEmoji);
@@ -54,6 +56,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         // send Emoji sticker
         sendButton.setOnClickListener(this);
 
+        //Chat History
+        historyButton.setOnClickListener(this);
 
 
 
@@ -74,38 +78,68 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 emojiId = 3;
                 displayEmoji.setImageResource(emojiList[3]);
                 break;
+            case R.id.historyButton:
+                Intent intent = new Intent(ChatActivity.this, ChatHistoryActivity.class);
+                 intent.putExtra("loggedinUser", user);
+                startActivity(intent);
+                break;
             case R.id.sendButton:
                 String receiver = receiverInput.getText().toString().toLowerCase();
-               if(!receiver.isEmpty() && emojiId > 0) {
+                if(!receiver.isEmpty() && emojiId > 0) {
 
-                   // create a sticker
-                   DatabaseReference dbRef = db.getReference();
-                   DatabaseReference newStkRef = dbRef.child("stickers").push();
-                   newStkRef.child("sender").setValue(user);
-                   newStkRef.child("receiver").setValue(receiver);
-                   newStkRef.child("emojiId").setValue(emojiId);
+                    // create a sticker
+                    DatabaseReference dbRef = db.getReference();
+                    DatabaseReference newStkRef = dbRef.child("stickers").push();
+                    newStkRef.child("sender").setValue(user);
+                    newStkRef.child("receiver").setValue(receiver);
+                    newStkRef.child("emojiId").setValue(emojiId);
 
-                   // reset emoji and receiver
-                   displayEmoji.setImageResource(emojiList[0]);
-                   receiverInput.setText("");
-                   Snackbar.make(view, "Sticker Sent", Snackbar.LENGTH_LONG)
-                           .show();
+                    // reset emoji and receiver
+                    displayEmoji.setImageResource(emojiList[0]);
+                    receiverInput.setText("");
+                    Snackbar.make(view, "Sticker Sent", Snackbar.LENGTH_LONG)
+                            .show();
 
-               }
-               else if(emojiId == 0) {
-                   Snackbar.make(view, "Please select a sticker to send", Snackbar.LENGTH_LONG)
-                           .show();
-               }
-               else{
-                   Snackbar.make(view, "Receiver username cannot be empty", Snackbar.LENGTH_LONG)
-                           .show();
-               }
+                }
+                else if(emojiId == 0) {
+                    Snackbar.make(view, "Please select a sticker to send", Snackbar.LENGTH_LONG)
+                            .show();
+                }
+                else{
+                    Snackbar.make(view, "Receiver username cannot be empty", Snackbar.LENGTH_LONG)
+                            .show();
+                }
 
         }
     }
 
 
     public class Sticker {
+
+
+        public String getSender() {
+            return sender;
+        }
+
+        public void setSender(String sender) {
+            this.sender = sender;
+        }
+
+        public String getReceiver() {
+            return receiver;
+        }
+
+        public void setReceiver(String receiver) {
+            this.receiver = receiver;
+        }
+
+        public int getEmojiId() {
+            return emojiId;
+        }
+
+        public void setEmojiId(int emojiId) {
+            this.emojiId = emojiId;
+        }
 
         private String sender;
         private String receiver;
