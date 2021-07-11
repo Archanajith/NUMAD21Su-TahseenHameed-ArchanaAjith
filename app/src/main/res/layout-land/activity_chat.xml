@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:ems="10"
-        android:hint="Receiver Name"
+        android:hint="Send To"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/historyButton"
         app:layout_constraintEnd_toEndOf="parent"
