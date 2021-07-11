@@ -3,6 +3,7 @@ package edu.neu.madcourse.numad21su_tahseenhameed_archanaajith;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,12 +39,19 @@ public class MainActivity extends AppCompatActivity {
                 String userInput = userName.getText().toString().trim().toLowerCase();
                 userInDb(userInput);
                 if(userValidation(userInput)){
-                    // open chat
+                    openChat(view, userInput);
                 }
 
             }
         });
 
+
+    }
+
+    private void openChat(View view, String userInput) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("userLoggedIn", userInput);
+        startActivity(intent);
 
     }
 
