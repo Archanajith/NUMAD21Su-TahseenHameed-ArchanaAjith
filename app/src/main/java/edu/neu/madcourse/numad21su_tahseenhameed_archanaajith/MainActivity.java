@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean userValidation(String userInput) {
         if (userInput.isEmpty()){
-            userName.setError("username cannot be empty");
+            userName.setError("Username cannot be empty");
             return false;
         } else{
             userName.setError(null);
