@@ -80,7 +80,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 displayEmoji.setImageResource(emojiList[3]);
                 break;
             case R.id.historyButton:
-                Intent intent = new Intent(ChatActivity.this, ChatHistoryActivity.class);
+                Intent intent = new Intent(this, ChatHistoryActivity.class);
                  intent.putExtra("loggedinUser", user);
                 startActivity(intent);
                 break;
@@ -115,7 +115,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public class Sticker {
+    public static class Sticker {
 
         public String getSender() {
             return sender;

@@ -28,41 +28,42 @@ public class ChatHistoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView header;
     Adapter adapter = new Adapter(this, listOfStickers);
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_history);
-
+        db = FirebaseDatabase.getInstance();
         currentUser = (String) getIntent().getSerializableExtra("loggedinUser");
         listOfStickers=new ArrayList<>();
         //noOfStickers=findViewById();
+// list of stickers
 
-        //Insert DB Code here
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Stickers");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference stkRef = db.getReference().child("stickers");
+        stkRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listOfStickers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            public void onDataChange( DataSnapshot snapshot) {
+                for (DataSnapshot stickerSnapshot: snapshot.getChildren()) {
 
-                    ChatActivity.Sticker sticker = snapshot.getValue(ChatActivity.Sticker.class);
-                    if (sticker.getSender().equals(currentUser)) {
-                        //numStickerSent++;
-                    }
-                    if (sticker.getReceiver().equals(currentUser)) {
-                        listOfStickers.add(sticker);
-                    }
+                    String sender = stickerSnapshot.child("sender").getValue(String.class);
+                    //Log.i("sender is", sender);
+                    String receiver = stickerSnapshot.child("receiver").getValue(String.class);
+                    //Log.i("receiver is", receiver);
+                    int emojiId = stickerSnapshot.child("emojiId").getValue(Integer.class);
+                    //Log.d(emojiId, emojiId);
+                    ChatActivity.Sticker stkDb = new ChatActivity.Sticker(sender, receiver, emojiId);
+                    listOfStickers.add(stkDb);
                 }
-                adapter.notifyDataSetChanged();
-                //displayNums.setText("You have sent " + Integer.toString(numStickerSent) + " stickers");
+
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled( DatabaseError error) {
             }
         });
+
+
+
         PutDataIntoRecyclerView(listOfStickers);
         //
 
